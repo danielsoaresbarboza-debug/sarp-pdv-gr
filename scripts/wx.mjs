@@ -10,12 +10,21 @@ const fmtZ = d => d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDa
 const esperar = ms => new Promise(r => setTimeout(r, ms));
 const pick = j => { const L = (j && j.data && (j.data.data || j.data)) || []; const a = Array.isArray(L) ? L.slice() : []; a.sort((x, y) => String(y.validade_inicial || '').localeCompare(String(x.validade_inicial || ''))); return a[0] ? (a[0].mens || a[0].message || '') : ''; };
 async function json(url) { const r = await fetch(url, { headers: { 'user-agent': 'sarp-pdv-gr-wx' } }); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }
+let falhaLogada = false;
 async function redemet(icao) {
   if (!KEY) throw new Error('sem chave');
-  const q = `?api_key=${KEY}&data_ini=${fmtZ(new Date(Date.now() - 6 * 3600e3))}&data_fim=${fmtZ(new Date())}`;
-  const metar = pick(await json(`https://api-redemet.decea.mil.br/mensagens/metar/${icao}${q}`));
-  let taf = ''; try { taf = pick(await json(`https://api-redemet.decea.mil.br/mensagens/taf/${icao}${q}`)); } catch (e) {}
-  return { metar, taf, fonte: 'REDEMET' };
+  const bases = ['https://api-redemet.decea.gov.br', 'https://api-redemet.decea.mil.br'];
+  const ini = fmtZ(new Date(Date.now() - 6 * 3600e3)), fim = fmtZ(new Date());
+  const tenta = async (tipo) => {
+    for (const base of bases) for (const q of [`?api_key=${KEY}`, `?api_key=${KEY}&data_ini=${ini}&data_fim=${fim}`]) {
+      try { const t = pick(await json(`${base}/mensagens/${tipo}/${icao}${q}`)); if (t) return t; }
+      catch (e) { if (!falhaLogada) { falhaLogada = true; console.log(`REDEMET ${base} ${tipo} ${icao}: ${e.message}`); } }
+    }
+    return '';
+  };
+  const metar = await tenta('metar');
+  if (!metar) throw new Error('sem METAR');
+  return { metar, taf: await tenta('taf'), fonte: 'REDEMET' };
 }
 let awc = null;
 async function aviationweather(icao) {
