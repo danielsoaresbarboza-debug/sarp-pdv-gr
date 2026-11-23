@@ -1,0 +1,28 @@
+name: METAR-TAF
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: wx
+  cancel-in-progress: false
+jobs:
+  wx:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Baixar METAR/TAF
+        env:
+          REDEMET_API_KEY: ${{ secrets.REDEMET_API_KEY }}
+        run: node scripts/wx.mjs
+      - name: Guardar no repositório
+        run: |
+          git config user.name "wx-bot"
+          git config user.email "wx-bot@users.noreply.github.com"
+          git add wx
+          if ! git diff --cached --quiet; then git commit -m "wx: METAR/TAF atualizados"; git pull --rebase origin main; git push; fi
