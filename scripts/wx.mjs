@@ -9,16 +9,23 @@ const pad = n => String(n).padStart(2, '0');
 const fmtZ = d => d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) + pad(d.getUTCHours());
 const esperar = ms => new Promise(r => setTimeout(r, ms));
 const pick = j => { const L = (j && j.data && (j.data.data || j.data)) || []; const a = Array.isArray(L) ? L.slice() : []; a.sort((x, y) => String(y.validade_inicial || '').localeCompare(String(x.validade_inicial || ''))); return a[0] ? (a[0].mens || a[0].message || '') : ''; };
-async function json(url) { const r = await fetch(url, { headers: { 'user-agent': 'sarp-pdv-gr-wx' } }); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }
-let falhaLogada = false;
+const diag = { chave_presente: !!KEY, tamanho_chave: KEY.length, tentativas: [] };
+async function json(url, headers = {}) {
+  const r = await fetch(url, { headers: { 'user-agent': 'sarp-pdv-gr-wx', ...headers } });
+  const txt = await r.text();
+  if (diag.tentativas.length < 12) diag.tentativas.push({ url: url.replace(KEY, '***'), http: r.status, trecho: txt.slice(0, 200).replace(KEY, '***') });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return JSON.parse(txt);
+}
 async function redemet(icao) {
   if (!KEY) throw new Error('sem chave');
   const bases = ['https://api-redemet.decea.gov.br', 'https://api-redemet.decea.mil.br'];
   const ini = fmtZ(new Date(Date.now() - 6 * 3600e3)), fim = fmtZ(new Date());
   const tenta = async (tipo) => {
-    for (const base of bases) for (const q of [`?api_key=${KEY}`, `?api_key=${KEY}&data_ini=${ini}&data_fim=${fim}`]) {
-      try { const t = pick(await json(`${base}/mensagens/${tipo}/${icao}${q}`)); if (t) return t; }
-      catch (e) { if (!falhaLogada) { falhaLogada = true; console.log(`REDEMET ${base} ${tipo} ${icao}: ${e.message}`); } }
+    for (const base of bases) for (const [q, h] of [
+      [`?api_key=${KEY}`, {}], [`?api_key=${KEY}&data_ini=${ini}&data_fim=${fim}`, {}],
+      ['', { 'X-Api-Key': KEY }], [`?data_ini=${ini}&data_fim=${fim}`, { 'X-Api-Key': KEY }]]) {
+      try { const t = pick(await json(`${base}/mensagens/${tipo}/${icao}${q}`, h)); if (t) return t; } catch (e) {}
     }
     return '';
   };
@@ -49,5 +56,6 @@ for (const icao of icaos) {
   if (ant && ant.metar === r.metar && ant.taf === (r.taf || ant.taf)) continue;
   fs.writeFileSync(arq, JSON.stringify({ icao, metar: r.metar, taf: r.taf || (ant && ant.taf) || '', fonte: r.fonte, gerado: new Date().toISOString() }) + '\n'); mudou++;
 }
+diag.gerado = new Date().toISOString(); fs.writeFileSync(new URL('../wx/DIAGNOSTICO.json', import.meta.url), JSON.stringify(diag, null, 1) + '\n');
 console.log(`aeródromos: ${icaos.length} · com METAR: ${ok} · atualizados: ${mudou}`);
 if (!ok) { console.error('Nenhuma fonte respondeu.'); process.exit(1); }
