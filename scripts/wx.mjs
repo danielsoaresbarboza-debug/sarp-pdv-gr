@@ -4,12 +4,23 @@ import fs from 'node:fs';
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const bloco = html.slice(html.indexOf('const AERODROMOS'), html.indexOf('];', html.indexOf('const AERODROMOS')));
 const icaos = [...new Set([...bloco.matchAll(/\["(S[A-Z]{3})"/g)].map(m => m[1]))];
-const KEY = process.env.REDEMET_API_KEY || '';
+const KEY0 = (process.env.REDEMET_API_KEY || '').replace(/\s+/g, '');
+let KEY = KEY0;
+// I maiúsculo e l minúsculo se confundem ao copiar: testa as variações e usa a que a REDEMET aceitar.
+async function escolheChave() {
+  if (!KEY0) return;
+  const pos = [...KEY0].map((c, i) => 'Il'.includes(c) ? i : -1).filter(i => i >= 0);
+  const cands = new Set([KEY0]);
+  for (let m = 0; m < (1 << Math.min(pos.length, 6)); m++) { const a = [...KEY0]; pos.slice(0, 6).forEach((p, j) => { a[p] = (m >> j) & 1 ? 'I' : 'l'; }); cands.add(a.join('')); }
+  for (const k of cands) {
+    try { const r = await fetch('https://api-redemet.decea.gov.br/mensagens/metar/SBBR', { headers: { 'X-Api-Key': k, 'user-agent': 'sarp-pdv-gr-wx' } }); diag.teste_chave = (diag.teste_chave || []).concat(r.status); if (r.ok) { KEY = k; diag.chave_ok = true; return; } } catch (e) { diag.teste_chave = (diag.teste_chave || []).concat(String(e.message)); }
+  }
+}
 const pad = n => String(n).padStart(2, '0');
 const fmtZ = d => d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) + pad(d.getUTCHours());
 const esperar = ms => new Promise(r => setTimeout(r, ms));
 const pick = j => { const L = (j && j.data && (j.data.data || j.data)) || []; const a = Array.isArray(L) ? L.slice() : []; a.sort((x, y) => String(y.validade_inicial || '').localeCompare(String(x.validade_inicial || ''))); return a[0] ? (a[0].mens || a[0].message || '') : ''; };
-const diag = { chave_presente: !!KEY, tamanho_chave: KEY.length, tentativas: [] };
+const diag = { chave_presente: !!KEY0, tamanho_chave: KEY0.length, tentativas: [] };
 async function json(url, headers = {}) {
   const r = await fetch(url, { headers: { 'user-agent': 'sarp-pdv-gr-wx', ...headers } });
   const txt = await r.text();
@@ -44,6 +55,7 @@ async function aviationweather(icao) {
   return { metar: awc.m[icao] || '', taf: awc.t[icao] || '', fonte: 'AviationWeather' };
 }
 fs.mkdirSync(new URL('../wx/', import.meta.url), { recursive: true });
+await escolheChave();
 let mudou = 0, ok = 0;
 for (const icao of icaos) {
   let r = null;
