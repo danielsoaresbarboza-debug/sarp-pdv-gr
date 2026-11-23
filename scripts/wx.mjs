@@ -71,3 +71,4 @@ for (const icao of icaos) {
 diag.gerado = new Date().toISOString(); fs.writeFileSync(new URL('../wx/DIAGNOSTICO.json', import.meta.url), JSON.stringify(diag, null, 1) + '\n');
 console.log(`aeródromos: ${icaos.length} · com METAR: ${ok} · atualizados: ${mudou}`);
 if (!ok) { console.error('Nenhuma fonte respondeu.'); process.exit(1); }
+// gatilho: roda o robô a cada alteração deste arquivo (útil quando o botão Run workflow some no celular)
