@@ -73,3 +73,4 @@ console.log(`aeródromos: ${icaos.length} · com METAR: ${ok} · atualizados: ${
 if (!ok) { console.error('Nenhuma fonte respondeu.'); process.exit(1); }
 // gatilho: roda o robô a cada alteração deste arquivo (útil quando o botão Run workflow some no celular)
 // run 1795519247
+// run 1795522087
