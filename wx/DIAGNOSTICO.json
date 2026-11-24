@@ -5,69 +5,69 @@
   {
    "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG?api_key=***",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"5e09071ae69a1a3385ef63206cdc1276\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"c78d4f3341195d35c8d7f7408bd5340f\"\n}"
   },
   {
-   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG?api_key=***&data_ini=2026112408&data_fim=2026112414",
+   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG?api_key=***&data_ini=2026112417&data_fim=2026112423",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"7edf8e33a3b50707a7888c55abcd9e59\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"43e50048cfc3ec70cb13996924302979\"\n}"
   },
   {
    "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"027cff0861a51d63bcb329752c62e25b\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"e71db06c62903a0ad4c3ef12ce57973c\"\n}"
   },
   {
-   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG?data_ini=2026112408&data_fim=2026112414",
+   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBCG?data_ini=2026112417&data_fim=2026112423",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"68e202558039d767dae0fc143491cd22\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"c1ed22117bcbcb43e5057c279fa6165d\"\n}"
   },
   {
    "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG?api_key=***",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"009b215fa7068d613b4ddf42d08c5947\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"e152e1148f23ee5e98bba05f1f736a68\"\n}"
   },
   {
-   "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG?api_key=***&data_ini=2026112408&data_fim=2026112414",
+   "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG?api_key=***&data_ini=2026112417&data_fim=2026112423",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"a237e92f605fee6b2959fa7f2dab9d1e\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"7b3afa6901eb9527641bcd48003ec168\"\n}"
   },
   {
    "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"2041380481ea1c207eed900695a8b51d\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"6a2608676a8b3b5848ed2922a97d6514\"\n}"
   },
   {
-   "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG?data_ini=2026112408&data_fim=2026112414",
+   "url": "https://api-redemet.decea.gov.br/mensagens/metar/SBCG?data_ini=2026112417&data_fim=2026112423",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"248a9030011ab7622171b401851c0446\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"ee9f275d356dd6284c6a556b4d30670c\"\n}"
   },
   {
    "url": "https://aviationweather.gov/api/data/metar?ids=SBCG,SBDB,SBCR,SBPP,SBDO,SBTG,SBCY,SBRD,SBAT,SBBR,SBAN,SBGO,SBCN,SBUL,SBUR,SBRP,SBSR,SBBU,SBYS,SBKP,SBGR,SBSP,SBMT,SBSJ,SBGW,SBTA,SBGL,SBRJ,SBAF,SBSC,SBJF,SBCF,SBBH,SBMK,SBIP,SBGV,SBVT,SBPS,SBIL,SBVC,SBLE,SBSV,SBAR,SBMO,SBPL,SBRF,SBKG,SBJP,SBJU,SBNT,SBMS,SBFZ,SBTE,SBPB,SBSL,SBIZ,SBMA,SBCJ,SBPJ,SBBE,SBSN,SBHT,SBMQ,SBEG,SBTF,SBTT,SBBV,SBPV,SBJI,SBVH,SBRB,SBCZ,SBCT,SBLO,SBMG,SBCA,SBTD,SBGU,SBFI,SBFL,SBJV,SBNF,SBCH,SBLJ,SBCM,SBPA,SBCX,SBPF,SBSM,SBUG,SBBG,SBPK,SBFN&format=json",
    "http": 200,
-   "trecho": "[{\"icaoId\":\"SBAF\",\"receiptTime\":\"2026-11-24T14:10:46.501Z\",\"obsTime\":1795528800,\"reportTime\":\"2026-11-24T14:00:00.000Z\",\"temp\":33,\"dewp\":27,\"wdir\":60,\"wspd\":6,\"visib\":\"6+\",\"altim\":1009,\"qcField\":0,\"me"
+   "trecho": "[{\"icaoId\":\"SBAF\",\"receiptTime\":\"2026-11-24T23:10:40.723Z\",\"obsTime\":1795561200,\"reportTime\":\"2026-11-24T23:00:00.000Z\",\"temp\":31,\"dewp\":29,\"wdir\":60,\"wspd\":3,\"visib\":\"6+\",\"altim\":1009,\"qcField\":0,\"me"
   },
   {
    "url": "https://aviationweather.gov/api/data/taf?ids=SBCG,SBDB,SBCR,SBPP,SBDO,SBTG,SBCY,SBRD,SBAT,SBBR,SBAN,SBGO,SBCN,SBUL,SBUR,SBRP,SBSR,SBBU,SBYS,SBKP,SBGR,SBSP,SBMT,SBSJ,SBGW,SBTA,SBGL,SBRJ,SBAF,SBSC,SBJF,SBCF,SBBH,SBMK,SBIP,SBGV,SBVT,SBPS,SBIL,SBVC,SBLE,SBSV,SBAR,SBMO,SBPL,SBRF,SBKG,SBJP,SBJU,SBNT,SBMS,SBFZ,SBTE,SBPB,SBSL,SBIZ,SBMA,SBCJ,SBPJ,SBBE,SBSN,SBHT,SBMQ,SBEG,SBTF,SBTT,SBBV,SBPV,SBJI,SBVH,SBRB,SBCZ,SBCT,SBLO,SBMG,SBCA,SBTD,SBGU,SBFI,SBFL,SBJV,SBNF,SBCH,SBLJ,SBCM,SBPA,SBCX,SBPF,SBSM,SBUG,SBBG,SBPK,SBFN&format=json",
    "http": 200,
-   "trecho": "[{\"icaoId\":\"SBAF\",\"dbPopTime\":\"2026-11-24T12:28:06.800Z\",\"bulletinTime\":\"2026-11-24T12:00:00.000Z\",\"issueTime\":\"2026-11-24T09:00:00.000Z\",\"validTimeFrom\":1795521600,\"validTimeTo\":1795564800,\"rawTAF\":\""
+   "trecho": "[{\"icaoId\":\"SBAF\",\"dbPopTime\":\"2026-11-24T18:28:06.242Z\",\"bulletinTime\":\"2026-11-24T18:00:00.000Z\",\"issueTime\":\"2026-11-24T17:00:00.000Z\",\"validTimeFrom\":1795543200,\"validTimeTo\":1795586400,\"rawTAF\":\""
   },
   {
    "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBDB?api_key=***",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"3e9d38238630021e53948f27170c4a12\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"b76d40205db010064fcefe3d512ab014\"\n}"
   },
   {
-   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBDB?api_key=***&data_ini=2026112408&data_fim=2026112414",
+   "url": "https://api-redemet.decea.mil.br/mensagens/metar/SBDB?api_key=***&data_ini=2026112417&data_fim=2026112423",
    "http": 401,
-   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"1b7e24625d88f0497902a1449368886c\"\n}"
+   "trecho": "{\n  \"message\":\"Invalid authentication credentials\",\n  \"request_id\":\"eb931d5c1144584bcd9538191097ef55\"\n}"
   }
  ],
  "teste_chave": [
   401,
   "fetch failed",
   401,
-  "fetch failed"
+  401
  ],
- "gerado": "2026-11-24T14:28:04.548Z"
+ "gerado": "2026-11-24T23:38:44.280Z"
 }
