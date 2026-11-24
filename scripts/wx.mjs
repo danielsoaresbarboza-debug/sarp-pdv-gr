@@ -72,3 +72,4 @@ diag.gerado = new Date().toISOString(); fs.writeFileSync(new URL('../wx/DIAGNOST
 console.log(`aeródromos: ${icaos.length} · com METAR: ${ok} · atualizados: ${mudou}`);
 if (!ok) { console.error('Nenhuma fonte respondeu.'); process.exit(1); }
 // gatilho: roda o robô a cada alteração deste arquivo (útil quando o botão Run workflow some no celular)
+// run 1795519247
