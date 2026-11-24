@@ -12,8 +12,8 @@ async function escolheChave() {
   const pos = [...KEY0].map((c, i) => 'Il'.includes(c) ? i : -1).filter(i => i >= 0);
   const cands = new Set([KEY0]);
   for (let m = 0; m < (1 << Math.min(pos.length, 6)); m++) { const a = [...KEY0]; pos.slice(0, 6).forEach((p, j) => { a[p] = (m >> j) & 1 ? 'I' : 'l'; }); cands.add(a.join('')); }
-  for (const k of cands) {
-    try { const r = await fetch('https://api-redemet.decea.gov.br/mensagens/metar/SBBR', { headers: { 'X-Api-Key': k, 'user-agent': 'sarp-pdv-gr-wx' } }); diag.teste_chave = (diag.teste_chave || []).concat(r.status); if (r.ok) { KEY = k; diag.chave_ok = true; return; } } catch (e) { diag.teste_chave = (diag.teste_chave || []).concat(String(e.message)); }
+  for (const k of cands) for (const H of ['decea.mil.br','decea.gov.br']) {
+    try { const r = await fetch('https://api-redemet.'+H+'/mensagens/metar/SBBR', { headers: { 'X-Api-Key': k, 'user-agent': 'sarp-pdv-gr-wx' } }); diag.teste_chave = (diag.teste_chave || []).concat(r.status); if (r.ok) { KEY = k; diag.chave_ok = true; return; } } catch (e) { diag.teste_chave = (diag.teste_chave || []).concat(String(e.message)); }
   }
 }
 const pad = n => String(n).padStart(2, '0');
@@ -30,7 +30,7 @@ async function json(url, headers = {}) {
 }
 async function redemet(icao) {
   if (!KEY) throw new Error('sem chave');
-  const bases = ['https://api-redemet.decea.gov.br', 'https://api-redemet.decea.mil.br'];
+  const bases = ['https://api-redemet.decea.mil.br', 'https://api-redemet.decea.gov.br'];
   const ini = fmtZ(new Date(Date.now() - 6 * 3600e3)), fim = fmtZ(new Date());
   const tenta = async (tipo) => {
     for (const base of bases) for (const [q, h] of [
