@@ -1,6 +1,6 @@
 // Service worker: o app abre e funciona sem internet.
 // Rede primeiro (pega versão nova) com limite de 4 s; se a rede falhar/demorar, usa o que está guardado.
-const CACHE = 'sarp-v76';
+const CACHE = 'sarp-v77';
 const BASE = ['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','versao.json'];
 self.addEventListener('install', e=>{
   e.waitUntil(caches.open(CACHE).then(c=>Promise.all(BASE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));
