@@ -1,0 +1,9 @@
+{
+ "chave_presente": false,
+ "icaos": 93,
+ "tentativas": [],
+ "erros": [],
+ "aviso": "Sem AISWEB_API_KEY/AISWEB_API_PASS: nada baixado.",
+ "itens": 0,
+ "com_coordenada": 0
+}

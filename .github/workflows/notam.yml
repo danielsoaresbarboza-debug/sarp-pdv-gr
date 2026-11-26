@@ -1,0 +1,32 @@
+name: NOTAM
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch: {}
+  push:
+    paths:
+      - 'scripts/notam.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: notam
+  cancel-in-progress: false
+jobs:
+  notam:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Baixar NOTAM
+        env:
+          AISWEB_API_KEY: ${{ secrets.AISWEB_API_KEY }}
+          AISWEB_API_PASS: ${{ secrets.AISWEB_API_PASS }}
+        run: node scripts/notam.mjs
+      - name: Guardar no repositório
+        run: |
+          git config user.name "notam-bot"
+          git config user.email "notam-bot@users.noreply.github.com"
+          git add notam
+          if ! git diff --cached --quiet; then git commit -m "notam: atualizados"; git pull --rebase origin main; git push; fi
